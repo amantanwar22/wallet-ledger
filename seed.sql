@@ -36,20 +36,20 @@ ON CONFLICT (id) DO NOTHING;
 
 -- ── User Wallets ──────────────────────────────────────────────────────────────
 -- Alice (user bbbbbbbb-0000-0000-0000-000000000001) — 1000 GC, 50 DIA, 500 LP
-INSERT INTO wallets (id, owner_id, owner_type, asset_type_id, balance)
+INSERT INTO wallets (id, owner_id, owner_type, asset_type_id, balance, name)
 VALUES
-  ('dddddddd-0000-0000-0000-000000000001', 'bbbbbbbb-0000-0000-0000-000000000001', 'user', '11111111-0000-0000-0000-000000000001', 1000),
-  ('dddddddd-0000-0000-0000-000000000002', 'bbbbbbbb-0000-0000-0000-000000000001', 'user', '11111111-0000-0000-0000-000000000002', 50),
-  ('dddddddd-0000-0000-0000-000000000003', 'bbbbbbbb-0000-0000-0000-000000000001', 'user', '11111111-0000-0000-0000-000000000003', 500)
-ON CONFLICT (id) DO NOTHING;
+  ('dddddddd-0000-0000-0000-000000000001', 'bbbbbbbb-0000-0000-0000-000000000001', 'user', '11111111-0000-0000-0000-000000000001', 1000, 'Alice'),
+  ('dddddddd-0000-0000-0000-000000000002', 'bbbbbbbb-0000-0000-0000-000000000001', 'user', '11111111-0000-0000-0000-000000000002', 50,   'Alice'),
+  ('dddddddd-0000-0000-0000-000000000003', 'bbbbbbbb-0000-0000-0000-000000000001', 'user', '11111111-0000-0000-0000-000000000003', 500,  'Alice')
+ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
 
 -- Bob (user bbbbbbbb-0000-0000-0000-000000000002) — 500 GC, 20 DIA, 200 LP
-INSERT INTO wallets (id, owner_id, owner_type, asset_type_id, balance)
+INSERT INTO wallets (id, owner_id, owner_type, asset_type_id, balance, name)
 VALUES
-  ('dddddddd-0000-0000-0000-000000000004', 'bbbbbbbb-0000-0000-0000-000000000002', 'user', '11111111-0000-0000-0000-000000000001', 500),
-  ('dddddddd-0000-0000-0000-000000000005', 'bbbbbbbb-0000-0000-0000-000000000002', 'user', '11111111-0000-0000-0000-000000000002', 20),
-  ('dddddddd-0000-0000-0000-000000000006', 'bbbbbbbb-0000-0000-0000-000000000002', 'user', '11111111-0000-0000-0000-000000000003', 200)
-ON CONFLICT (id) DO NOTHING;
+  ('dddddddd-0000-0000-0000-000000000004', 'bbbbbbbb-0000-0000-0000-000000000002', 'user', '11111111-0000-0000-0000-000000000001', 500, 'Bob'),
+  ('dddddddd-0000-0000-0000-000000000005', 'bbbbbbbb-0000-0000-0000-000000000002', 'user', '11111111-0000-0000-0000-000000000002', 20,  'Bob'),
+  ('dddddddd-0000-0000-0000-000000000006', 'bbbbbbbb-0000-0000-0000-000000000002', 'user', '11111111-0000-0000-0000-000000000003', 200, 'Bob')
+ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
 
 -- =============================================================================
 -- Reference: Key UUIDs for API testing

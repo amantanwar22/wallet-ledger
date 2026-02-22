@@ -95,20 +95,20 @@ async function seed() {
 
     // ── 3. User Wallets & Initial Balances ───────────────────────────────────
     const userWallets = [
-      { id: SEED.wallets.alice_gc,  owner_id: SEED.users.alice, asset_type_id: SEED.assetTypes.goldCoins, balance: 1000 },
-      { id: SEED.wallets.alice_dia, owner_id: SEED.users.alice, asset_type_id: SEED.assetTypes.diamonds,  balance: 50   },
-      { id: SEED.wallets.alice_lp,  owner_id: SEED.users.alice, asset_type_id: SEED.assetTypes.loyalPts,  balance: 500  },
-      { id: SEED.wallets.bob_gc,    owner_id: SEED.users.bob,   asset_type_id: SEED.assetTypes.goldCoins, balance: 500  },
-      { id: SEED.wallets.bob_dia,   owner_id: SEED.users.bob,   asset_type_id: SEED.assetTypes.diamonds,  balance: 20   },
-      { id: SEED.wallets.bob_lp,    owner_id: SEED.users.bob,   asset_type_id: SEED.assetTypes.loyalPts,  balance: 200  },
+      { id: SEED.wallets.alice_gc,  name: 'Alice', owner_id: SEED.users.alice, asset_type_id: SEED.assetTypes.goldCoins, balance: 1000 },
+      { id: SEED.wallets.alice_dia, name: 'Alice', owner_id: SEED.users.alice, asset_type_id: SEED.assetTypes.diamonds,  balance: 50   },
+      { id: SEED.wallets.alice_lp,  name: 'Alice', owner_id: SEED.users.alice, asset_type_id: SEED.assetTypes.loyalPts,  balance: 500  },
+      { id: SEED.wallets.bob_gc,    name: 'Bob',   owner_id: SEED.users.bob,   asset_type_id: SEED.assetTypes.goldCoins, balance: 500  },
+      { id: SEED.wallets.bob_dia,   name: 'Bob',   owner_id: SEED.users.bob,   asset_type_id: SEED.assetTypes.diamonds,  balance: 20   },
+      { id: SEED.wallets.bob_lp,    name: 'Bob',   owner_id: SEED.users.bob,   asset_type_id: SEED.assetTypes.loyalPts,  balance: 200  },
     ];
 
     for (const w of userWallets) {
       await client.query(
-        `INSERT INTO wallets (id, owner_id, owner_type, asset_type_id, balance)
-         VALUES ($1, $2, 'user', $3, $4)
-         ON CONFLICT (id) DO NOTHING`,
-        [w.id, w.owner_id, w.asset_type_id, w.balance],
+        `INSERT INTO wallets (id, owner_id, owner_type, asset_type_id, balance, name)
+         VALUES ($1, $2, 'user', $3, $4, $5)
+         ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name`,
+        [w.id, w.owner_id, w.asset_type_id, w.balance, w.name],
       );
       console.log(`  ✔ user_wallet:   id=${w.id.slice(0, 8)}... balance=${w.balance}`);
     }
