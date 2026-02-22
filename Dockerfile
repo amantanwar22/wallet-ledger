@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "src/server.js"]
+CMD ["sh", "-c", "node src/db/migrate.js && node src/db/seed.js && node src/server.js"]

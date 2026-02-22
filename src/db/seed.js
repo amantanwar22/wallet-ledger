@@ -15,6 +15,7 @@ const pool = new pg.Pool({
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
 // Fixed UUIDs for deterministic seeding — change nothing between runs
