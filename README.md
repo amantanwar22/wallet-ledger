@@ -6,6 +6,19 @@ Tracks virtual currency balances (Gold Coins, Diamonds, Loyalty Points) for a hi
 
 ---
 
+## Deliverables
+
+| Requirement | File / Section |
+|---|---|
+| **Source Code** | [GitHub Repo](https://github.com/amantanwar22/wallet-ledger)  |
+| **Live URL** | [Live URL](https://wallet-ledger-qgzi.onrender.com)  |
+| **Setup Script** | [setup.sh] (Automated install, migrate, seed) |
+| **Seed Data** | [seed.sql] (Raw SQL) or `npm run seed` |
+
+
+
+---
+
 ## Technology Choices & Why
 
 | Tech | Choice | Why |
@@ -56,7 +69,7 @@ All mutation endpoints accept an `Idempotency-Key` header. The response is store
 
 ```bash
 # Clone and start everything (PostgreSQL + app + migrations + seed)
-git clone <repo-url>
+git clone https://github.com/amantanwar22/wallet-ledger
 cd wallet-ledger
 docker-compose down -v
 docker-compose up --build
@@ -210,7 +223,7 @@ npm run test:coverage
 src/
 ├── config/        # DB pool (pg), Winston logger, Joi env validation
 ├── db/
-│   ├── migrations/  # Raw SQL files — 001..005
+│   ├── migrations/  # Raw SQL files — 001..006
 │   ├── migrate.js   # Migration runner (tracks applied files)
 │   └── seed.js      # Programmatic seeder
 ├── middleware/    # errorHandler, idempotency, rateLimiter, requestId, validate
